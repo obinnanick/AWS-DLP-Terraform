@@ -6,7 +6,7 @@ This project implements a **Data Loss Prevention (DLP) solution** using **AWS Ma
 ## Features
 ✅ **Automated Sensitive Data Scanning** – AWS Macie scans S3 for PII, financial, and other sensitive data.
 ✅ **Real-time Alerts** – When sensitive data is detected, notifications are sent via **Amazon SNS**.
-✅ **Custom Actions with Lambda** – A Lambda function can process Macie findings for further automation.
+✅ **Automated Remediation** – A Lambda function **moves sensitive files to a quarantine S3 bucket and deletes them from the original location**.
 ✅ **Infrastructure as Code** – Entire solution is provisioned using **Terraform**.
 
 ## Architecture Diagram
@@ -16,7 +16,7 @@ This project implements a **Data Loss Prevention (DLP) solution** using **AWS Ma
 - **AWS Macie** – Detects and classifies sensitive data.
 - **Amazon S3** – Stores the data that is scanned by Macie.
 - **AWS EventBridge** – Captures Macie findings and triggers automation.
-- **AWS Lambda** – Processes alerts and takes automated actions.
+- **AWS Lambda** – Moves flagged files to a quarantine bucket and deletes them.
 - **Amazon SNS** – Sends notifications to security teams.
 - **AWS IAM** – Manages permissions for Macie, Lambda, and other services.
 
@@ -49,24 +49,19 @@ This project implements a **Data Loss Prevention (DLP) solution** using **AWS Ma
 1. **Macie scans the S3 bucket** for sensitive data (credit cards, BVNs, etc.).
 2. **Findings are sent to EventBridge**, which triggers two actions:
    - Sends an alert via SNS.
-   - Invokes a Lambda function for further processing.
-3. **Security teams receive real-time notifications**, allowing them to take action.
+   - Invokes a **Lambda function that moves the flagged file to a quarantine S3 bucket and deletes it from the original bucket**.
+3. **Security teams receive real-time notifications**, confirming the quarantine and deletion.
 
 ## Project Files
 - `main.tf` – Defines AWS infrastructure (S3, Macie, EventBridge, SNS, Lambda).
 - `variables.tf` – Stores configuration variables.
 - `iam.tf` – Manages IAM roles and policies.
-- `lambda_function.py` – The Python script for Lambda automation.
-
-## Next Steps
-- Extend Macie to scan additional S3 buckets.
-- Enhance Lambda to take automated remediation actions.
-- Integrate AWS Security Hub for centralized security monitoring.
+- `lambda_function.py` – The Python script for Lambda automation, moving sensitive files to quarantine before deletion.
 
 ## Author
 👤 **Nick-Abugu Obinna**  
 📧 Email: nickabuguobinna@gmail.com  
-🔗[GitHub](https://github.com/obinnanick)
+🔗 [GitHub](https://github.com/obinnanick)
 
 ## License
 This project is open-source and available under the [MIT License](LICENSE).
