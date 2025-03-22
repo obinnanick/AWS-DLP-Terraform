@@ -53,9 +53,8 @@ This project implements a **Data Loss Prevention (DLP) solution** using **AWS Ma
 3. **Security teams receive real-time notifications**, confirming the quarantine and deletion.
 
 ## Project Files
-- `main.tf` – Defines AWS infrastructure (S3, Macie, EventBridge, SNS, Lambda).
-- `variables.tf` – Stores configuration variables.
-- `iam.tf` – Manages IAM roles and policies.
+- `main.tf` – Defines AWS infrastructure (S3, Macie, EventBridge, SNS, Lambda, IAM Policy)
+- `macie_enable.tf` - Enabling macie before initializing the job
 - `lambda_function.py` – The Python script for Lambda automation, moving sensitive files to quarantine before deletion.
 
 ## Author
